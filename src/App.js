@@ -1,26 +1,21 @@
 import './App.css';
 // @mui material components
-import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import { ThemeProvider } from "@mui/material/styles";
 
 // Soft UI Dashboard React themes
-import theme from "assets/theme";
-import { Navigate, Route, Routes } from 'react-router-dom';
-import Sidenav from 'assets/examples/Sidenav';
-import { useSoftUIController } from 'assets/context';
-import brand from "assets/img/logo-ct.png";
-import { useEffect, useState } from 'react';
-import { setMiniSidenav } from 'assets/context';
-import { setOpenConfigurator } from 'assets/context';
-import Configurator from 'assets/examples/Configurator';
+import { Icon, StyledEngineProvider } from '@mui/material';
 import SoftBox from 'assets/components/SoftBox';
-import { Icon } from '@mui/material';
-import routes from './routes';
+import { setMiniSidenav, setOpenConfigurator, useSoftUIController } from 'assets/context';
+import Configurator from 'assets/examples/Configurator';
+import Footer from 'assets/examples/Footer';
 import DashboardLayout from 'assets/examples/LayoutContainers/DashboardLayout';
 import DashboardNavbar from 'assets/examples/Navbars/DashboardNavbar';
-import Footer from 'assets/examples/Footer';
-import SoftButton from 'assets/components/SoftButton';
-import CreditCard from 'assets/examples/Icons/CreditCard';
+import Sidenav from 'assets/examples/Sidenav';
+import theme from "assets/theme";
+import { useState } from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import routes from './routes';
 
 function App() {
   const [controller, dispatch] = useSoftUIController();
@@ -93,35 +88,37 @@ function App() {
 
   return (
     <>
+      <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
           <CssBaseline />
           {layout === "dashboard" && (
             <>
-            <Sidenav 
-              className={'ps ps--active-y'}
-              color={sidenavColor}
-              // brand={(<CreditCard size="12px" />)}
-              brandName="ERP System"
-              icon={<i className='ni ni-money-coins'/>}
-              type={"collapse"}
-              routes={routes}
-              onMouseEnter={handleOnMouseEnter}
-              onMouseLeave={handleOnMouseLeave}
-            />
-            <Configurator />
-            {configsButton}
-          </>
-        )}
-        {layout === "vr" && <Configurator />}
-        <DashboardLayout>
-          <DashboardNavbar />
-          <Routes>
-            {getRoutes(routes)}
-            <Route path="*" element={<Navigate to="/dashboard" />} />
-          </Routes>
-          <Footer />
-        </DashboardLayout>
-      </ThemeProvider>
+              <Sidenav
+                className={'ps ps--active-y'}
+                color={sidenavColor}
+                // brand={(<CreditCard size="12px" />)}
+                brandName="ERP System"
+                icon={<i className='ni ni-money-coins' />}
+                type={"collapse"}
+                routes={routes}
+                onMouseEnter={handleOnMouseEnter}
+                onMouseLeave={handleOnMouseLeave}
+              />
+              <Configurator />
+              {configsButton}
+            </>
+          )}
+          {layout === "vr" && <Configurator />}
+          <DashboardLayout>
+            <DashboardNavbar />
+            <Routes>
+              {getRoutes(routes)}
+              <Route path="*" element={<Navigate to="/dashboard" />} />
+            </Routes>
+            <Footer />
+          </DashboardLayout>
+        </ThemeProvider>
+      </StyledEngineProvider>
     </>
 
   )

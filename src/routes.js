@@ -19,6 +19,8 @@ import CustomerSupport from "assets/examples/Icons/CustomerSupport";
 import CreditCard from "assets/examples/Icons/CreditCard";
 import Cube from "assets/examples/Icons/Cube";
 import Home from "component/Home";
+import MasterCreator from "component/MasterCreator";
+import PurchaseOrderForm from "component/PurchaseOrder/PurchaseOrderForm";
 
 const routes = [
   {
@@ -38,6 +40,26 @@ const routes = [
     route: "/purchase-order-list",
     icon: <CreditCard size="12px" />,
     component: <Home />,
+    noCollapse: true,
+    protected: false,
+  },
+  {
+    type: "collapse",
+    name: "Master Creator",
+    key: "dynamic-generate-db",
+    route: "/dynamic-generate-db",
+    icon: <CreditCard size="12px" />,
+    component: <MasterCreator />,
+    noCollapse: true,
+    protected: false,
+  },
+  {
+    type: "collapse",
+    name: "Purchase order Create",
+    key: "create-purchase-order",
+    route: "/create-purchase-order",
+    icon: <CreditCard size="12px" />,
+    component: <PurchaseOrderForm />,
     noCollapse: true,
     protected: false,
   },

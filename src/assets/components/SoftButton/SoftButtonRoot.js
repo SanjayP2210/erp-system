@@ -208,7 +208,7 @@ export default styled(Button)(({ theme, ownerState }) => {
       height: sizeValue,
       minHeight: sizeValue,
       padding: paddingValue,
-
+      zIndex: 0,
       "& .material-icons": {
         marginTop: 0,
       },

@@ -14,25 +14,26 @@ const action = (
 );
 
 const staticColums = [
-  "Date",
-  "PONO",
-  "Po Type",
-  "Party",
-  "Remarks",
-  "RefNo",
-  "TotalAmount",
-  "ReqDate",
-  "OCNo",
-  "OC Dt",
-  "OrderNo",
-  "Machine",
-  "DelDate",
-  "GRN Date",
-  "QCType",
-  "Entry By",
-  "Auth By",
-  "St",
-  "Att"
+  // "_id",
+  "date",
+  "po_number",
+  "po_type",
+  "party",
+  "remarks",
+  "ref_number",
+  "total_amount",
+  "req_date",
+  "oc_number",
+  "oc_date",
+  "order_number",
+  "machine",
+  "delivery_date",
+  "grn_date",
+  "qc_type",
+  "entry_by",
+  "auth_by",
+  "st",
+  "att",
 ];
 
 const staticRows = [
@@ -54,7 +55,7 @@ const staticRows = [
     "QCType": "@ Re INDIA Factory",
     "Entry By": "Zinal Parikh",
     "Auth By": "",
-    "St": "C",
+    "st": "C",
     "Att": 0
   },
   {
@@ -75,7 +76,7 @@ const staticRows = [
     "QCType": "@ Supplier",
     "Entry By": "Krunal Desai",
     "Auth By": "",
-    "St": "C",
+    "st": "C",
     "Att": 0
   },
   {
@@ -96,7 +97,7 @@ const staticRows = [
     "QCType": "NA",
     "Entry By": "Krunal Desai",
     "Auth By": "",
-    "St": "C",
+    "st": "C",
     "Att": 0
   },
   {
@@ -117,7 +118,7 @@ const staticRows = [
     "QCType": "@ Re INDIA Factory",
     "Entry By": "Krunal Desai",
     "Auth By": "",
-    "St": "C",
+    "st": "C",
     "Att": 0
   },
   {
@@ -138,7 +139,7 @@ const staticRows = [
     "QCType": "@ Re INDIA Factory",
     "Entry By": "Krunal Desai",
     "Auth By": "",
-    "St": "C",
+    "st": "C",
     "Att": 0
   },
   {
@@ -159,7 +160,7 @@ const staticRows = [
     "QCType": "@ Supplier",
     "Entry By": "Krunal Desai",
     "Auth By": "",
-    "St": "C",
+    "st": "C",
     "Att": 0
   },
   {
@@ -180,7 +181,7 @@ const staticRows = [
     "QCType": "@ Supplier",
     "Entry By": "Krunal Desai",
     "Auth By": "",
-    "St": "C",
+    "st": "C",
     "Att": 0
   },
   {
@@ -201,7 +202,7 @@ const staticRows = [
     "QCType": "@ Supplier",
     "Entry By": "Krunal Desai",
     "Auth By": "",
-    "St": "C",
+    "st": "C",
     "Att": 0
   },
   {
@@ -222,7 +223,7 @@ const staticRows = [
     "QCType": "NA",
     "Entry By": "Krunal Desai",
     "Auth By": "",
-    "St": "C",
+    "st": "C",
     "Att": 0
   },
   {
@@ -243,7 +244,7 @@ const staticRows = [
     "QCType": "@ Supplier",
     "Entry By": "Hardik Patel",
     "Auth By": "Mohan Chandra",
-    "St": "A",
+    "st": "A",
     "Att": 0
   },
   {
@@ -264,7 +265,7 @@ const staticRows = [
     "QCType": "NA",
     "Entry By": "Krunal Desai",
     "Auth By": "",
-    "St": "C",
+    "st": "C",
     "Att": 0
   },
   {
@@ -285,16 +286,16 @@ const staticRows = [
     "QCType": "@ Re INDIA Factory",
     "Entry By": "Krunal Desai",
     "Auth By": "",
-    "St": "C",
+    "st": "C",
     "Att": 0
   },
- ]
+]
 
 const generateColum = (data) => {
   const generatedColums = [];
   if (data && data?.length > 0) {
     data.map(x => {
-      generatedColums.push({ name: x, align: "left" });
+      generatedColums.push({ name: x, align: "left" , label: x, accessor: x, sortable: true, sortbyOrder: "" });
     });
     generatedColums.push({ name: "action", align: "center" });
     return generatedColums;
@@ -306,7 +307,7 @@ const generateColum = (data) => {
 const addSoftBox = (text) => {
   return (
     <SoftTypography variant="caption" color="text" fontWeight="medium">
-     {text}
+      {text}
     </SoftTypography>
   )
 }
@@ -322,27 +323,27 @@ const generateRows = (data) => {
   if (data && data?.length > 0) {
     const newGeneratedData = data.map(x => { return { ...x, action: '' } });
     console.log('newGeneratedData', newGeneratedData);
-    const generatedRows = newGeneratedData.map((objects) =>{
+    const generatedRows = newGeneratedData.map((objects) => {
       return Object.fromEntries(
-      Object.entries(objects).map(([key, value]) => {
-        console.log(`key ${key} & value- ${value}`);
-        if (key == 'action') {
-          return  [key, addActionButton()];
-        } else {
-          return  [key, addSoftBox(value)]; 
-        }
-      })
-    );
-  });
+        Object.entries(objects).map(([key, value]) => {
+          console.log(`key ${key} & value- ${value}`);
+          if (key == 'action') {
+            return [key, addActionButton()];
+          } else {
+            return [key, value];
+          }
+        })
+      );
+    });
     console.log("🚀 ~ file: projectsTableData.js:398 ~ generatedRows.map ~ objects:", generatedRows);
     return generatedRows;
   } else {
-    return generatedRows;   
+    return generatedRows;
   }
 }
 
-const dynamicGeneratedData = {
-  columns: generateColum(staticColums),
+const dynamicGeneratedData = (staticColums,) => {
+  const columns= generateColum(staticColums);
   // columns: [
   //   { name: "project", align: "left" },
   //   { name: "budget", align: "left" },
@@ -351,7 +352,8 @@ const dynamicGeneratedData = {
   //   { name: "action", align: "center" },
   // ],
 
-  rows: generateRows(staticRows)
+  const rows = staticRows;
+  return {columns,rows}
 };
 
 export default dynamicGeneratedData;

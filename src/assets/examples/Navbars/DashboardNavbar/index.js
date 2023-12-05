@@ -182,7 +182,8 @@ function DashboardNavbar({ absolute, light, isMini }) {
       <Toolbar sx={(theme) => navbarContainer(theme)}>
       <SoftBox
             sx={{
-              display: "flex",
+            display: "flex",
+            zIndex:'0'
             }}
           >
             <SoftButton

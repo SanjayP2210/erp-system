@@ -8,24 +8,68 @@
 
 /* scrollbar */
 ::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
-  }
-  
-  ::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.3);
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
-  }
-  
-  ::-webkit-scrollbar-thumb:window-inactive {
-    background: rgba(255, 255, 255, 0.3);
-  }
-  
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.3);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+button .MuiButtonBase-root {
+  z-index: inherit;
+}
+
+.modal {
+  z-index: 2000;
+}
+
+.MuiPaper-root {
+  z-index: inherit;
+}
+
+.MuiPaper-elevation {
+  z-index: inherit;
+}
+
+select.form-control {
+  -webkit-appearance: menulist !important;
+  -moz-appearance: menulist !important;
+  -ms-appearance: menulist !important;
+  -o-appearance: menulist !important;
+  appearance: menulist !important;
+}
+
+
+.Mui-Autocomplete-popper {
+  padding: 0px !important;
+}
+
+
+.display-flex {
+  display: flex !important;
+}
+
+.item-center {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.no-padding{
+  padding:0px !important;
+  width: 100%;
+}

@@ -26,6 +26,7 @@ import SoftInputIconRoot from "assets/components/SoftInput/SoftInputIconRoot";
 
 // Soft UI Dashboard React contexts
 import { useSoftUIController } from "assets/context";
+import SoftTypography from "../SoftTypography";
 
 const SoftInput = forwardRef(({ size, icon, error, success, disabled, ...rest }, ref) => {
   let template;
@@ -33,14 +34,37 @@ const SoftInput = forwardRef(({ size, icon, error, success, disabled, ...rest },
   const { direction } = controller;
   const iconDirection = icon.direction;
 
-  if (icon.component && icon.direction === "left") {
+  if (icon.component && icon.type === 'text' && icon.direction === "right") {
     template = (
       <SoftInputWithIconRoot ref={ref} ownerState={{ error, success, disabled }}>
-        <SoftInputIconBoxRoot ownerState={{ size }}>
-          <SoftInputIconRoot fontSize="small" ownerState={{ size }}>
-            {icon.component}
-          </SoftInputIconRoot>
+        <SoftInputRoot
+          {...rest}
+          ownerState={{ size, error, success, iconDirection, direction, disabled }}
+        />
+        <SoftInputIconBoxRoot ownerState={{ size }} style={{ width: 'auto', padding: '5px' }}>
+          <SoftTypography component="label" variant="caption" fontWeight="bold">
+            {icon.text}
+          </SoftTypography>
         </SoftInputIconBoxRoot>
+      </SoftInputWithIconRoot>
+    );
+
+  } else if (icon.component && icon.direction === "left") {
+    template = (
+      <SoftInputWithIconRoot ref={ref} ownerState={{ error, success, disabled }}>
+        {icon.type === "text" && icon.text ?
+          <SoftInputIconBoxRoot ownerState={{ size }} style={{ width: 'auto', padding: '5px' }}>
+            <SoftTypography component="label" variant="caption" fontWeight="bold">
+              {icon.text}
+            </SoftTypography>
+          </SoftInputIconBoxRoot>
+          :
+          <SoftInputIconBoxRoot ownerState={{ size }}>
+            <SoftInputIconRoot fontSize="small" ownerState={{ size }}>
+              {icon.component}
+            </SoftInputIconRoot>
+          </SoftInputIconBoxRoot>
+        }
         <SoftInputRoot
           {...rest}
           ownerState={{ size, error, success, iconDirection, direction, disabled }}
@@ -54,11 +78,19 @@ const SoftInput = forwardRef(({ size, icon, error, success, disabled, ...rest },
           {...rest}
           ownerState={{ size, error, success, iconDirection, direction, disabled }}
         />
-        <SoftInputIconBoxRoot ownerState={{ size }}>
-          <SoftInputIconRoot fontSize="small" ownerState={{ size }}>
-            {icon.component}
-          </SoftInputIconRoot>
-        </SoftInputIconBoxRoot>
+        {icon.type === "text" && icon.text ?
+          <SoftInputIconBoxRoot ownerState={{ size }} style={{ width: 'auto', padding: '5px' }}>
+            <SoftTypography component="label" variant="caption" fontWeight="bold">
+              {icon.text}
+            </SoftTypography>
+          </SoftInputIconBoxRoot>
+          :
+          <SoftInputIconBoxRoot ownerState={{ size }}>
+            <SoftInputIconRoot fontSize="small" ownerState={{ size }}>
+              {icon.component}
+            </SoftInputIconRoot>
+          </SoftInputIconBoxRoot>
+        }
       </SoftInputWithIconRoot>
     );
   } else {
@@ -76,6 +108,8 @@ SoftInput.defaultProps = {
   icon: {
     component: false,
     direction: "none",
+    type: "",
+    text: ""
   },
   error: false,
   success: false,
@@ -88,6 +122,8 @@ SoftInput.propTypes = {
   icon: PropTypes.shape({
     component: PropTypes.oneOfType([PropTypes.node, PropTypes.bool]),
     direction: PropTypes.oneOf(["none", "left", "right"]),
+    type: PropTypes.string,
+    text: PropTypes.string
   }),
   error: PropTypes.bool,
   success: PropTypes.bool,
